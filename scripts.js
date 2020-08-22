@@ -163,4 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     current = theTetriminoes[random][currentRotation];
   }
+
+  // Show next
 });

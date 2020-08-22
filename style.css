@@ -2,6 +2,10 @@ h1 {
   color: red;
 }
 
+.container {
+  display: flex;
+}
+
 .grid {
   background-color: grey;
   display: flex;
@@ -11,6 +15,20 @@ h1 {
 }
 
 .grid div {
+  height: 20px;
+  width: 20px;
+}
+
+.mini-grid {
+  background-color: purple;
+  display: flex;
+  flex-wrap: wrap;
+  height: 80px;
+  margin-left: 50px;
+  width: 80px;
+}
+
+.mini-grid div {
   height: 20px;
   width: 20px;
 }
