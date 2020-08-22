@@ -153,4 +153,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     draw();
   }
+
+  //Rotate
+  function rotate() {
+    undraw();
+    currentRotation++;
+    if (currentRotation == current.length) {
+      currentRotation = 0;
+    }
+    current = theTetriminoes[random][currentRotation];
+  }
 });
