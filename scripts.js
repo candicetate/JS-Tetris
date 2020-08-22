@@ -100,4 +100,24 @@ document.addEventListener("DOMContentLoaded", () => {
       draw();
     }
   }
+
+  // Find the edges
+  function moveLeft() {
+    undraw();
+    const isAtLeftEdge = current.some(
+      (index) => (currentPosition + index) % width === 0
+    );
+
+    if (!isAtLeft) currentPosition -= 1;
+
+    if (
+      current.some((index) =>
+        squares[currentPosition + index].classList.contains("taken")
+      )
+    ) {
+      currentPosition += 1;
+    }
+
+    draw();
+  }
 });
