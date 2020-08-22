@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.querySelector(".grid");
   let squares = Array.from(document.querySelectorAll(".grid div"));
-  const ScoreDisplay = document.querySelector("#score");
-  const StartButton = document.querySelector("#start-button");
+  const scoreDisplay = document.querySelector("#score");
+  const startButton = document.querySelector("#start-button");
   const width = 10;
   let nextRandom = 0;
+  let timerId;
 
   //The Tetrominoes
   const lTetromino = [
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   //Make the block move down every second
-  timderID = setInterval(moveDown, 1000);
+  //timerID = setInterval(moveDown, 1000);
 
   //Key strokes
   function control(event) {
@@ -112,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       current = theTetriminoes[random][currentRotation];
       currentPosition = 4;
       draw();
+      displayShape();
     }
   }
 
@@ -165,4 +167,44 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Show next
+
+  const displaySquares = document.querySelector(".mini-grid");
+  const displayWidth = 4;
+  let displayIndex = 0;
+
+  // Show without rotation
+  const upNext = [
+    [1, displayWidth + 1, displayWidth * 2 + 1, 2], //lTetromino
+    [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1], //zTetromino
+    [1, displayWidth, displayWidth + 1, displayWidth + 2], //tTetromino
+    [0, 1, displayWidth, displayWidth + 1], //oTetromino
+    [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1], //iTetromino1
+  ];
+
+  //display up next
+  function displayShape() {
+    displaySquares.forEach((square) => {
+      square.classList.remove("tetrimino");
+      square.style.backgroundColor = "";
+    });
+    upNext[nextRandom].forEach((index) => {
+      displaySquares[displayIndex + index].classList.add("tetrimino");
+      displaySquares[displayIndex + index].style.backgroundColor =
+        colors[nextRandom];
+    });
+  }
+
+  // Start / Pause button
+
+  startButton.addEventListener("click", () => {
+    if (timerId) {
+      clearInterval(timerId);
+      timerId = null;
+    } else {
+      draw();
+      timerId = setInterval(moveDown, 1000);
+      nextRandom = Math.floor(Math.random() * theTetriminoes.length);
+      displayShape();
+    }
+  });
 });
