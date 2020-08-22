@@ -20,7 +20,7 @@ h1 {
 }
 
 .mini-grid {
-  background-color: purple;
+  background-color: grey;
   display: flex;
   flex-wrap: wrap;
   height: 80px;
