@@ -50,7 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   let currentPosition = 4;
-  let current = theTetriminoes[0][0];
+  let currentRotation = 0;
 
-  // The first block
+  // Start with random block
+  let random = Math.floor(Math.random() * theTetriminoes.length);
+  let current = theTetriminoes[random][currentRotation];
+
+  // Draw the first block
+  function draw() {
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.add("tetrimino");
+    });
+  }
+
+  // Undraw the first block
+  function undraw() {
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.remove("tetrimino");
+    });
+  }
 });
