@@ -74,6 +74,20 @@ document.addEventListener("DOMContentLoaded", () => {
   //Make the block move down every second
   timderID = setInterval(moveDown, 1000);
 
+  //Key strokes
+  function control(event) {
+    if (event.keyCode === 37) {
+      moveLeft();
+    } else if (event.keyCode === 38) {
+      rotate();
+    } else if (event.keyCode === 39) {
+      moveRight();
+    } else if (event.keyCode === 40) {
+      moveDown();
+    }
+  }
+  document.addEventListener("keyup", control);
+
   //Move down function
   function moveDown() {
     undraw();
@@ -108,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
       (index) => (currentPosition + index) % width === 0
     );
 
-    if (!isAtLeft) currentPosition -= 1;
+    if (!isAtLeftEdge) currentPosition -= 1;
 
     if (
       current.some((index) =>
@@ -116,6 +130,25 @@ document.addEventListener("DOMContentLoaded", () => {
       )
     ) {
       currentPosition += 1;
+    }
+
+    draw();
+  }
+
+  function moveRight() {
+    undraw();
+    const isAtRightEdge = current.some(
+      (index) => (currentPosition + index) % width === width - 1
+    );
+
+    if (!isAtRightEdge) currentPosition += 1;
+
+    if (
+      current.some((index) =>
+        squares[currentPosition + index].classList.contains("taken")
+      )
+    ) {
+      currentPosition -= 1;
     }
 
     draw();
