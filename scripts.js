@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ScoreDisplay = document.querySelector("#score");
   const StartButton = document.querySelector("#start-button");
   const width = 10;
+  let nextRandom = 0;
 
   //The Tetrominoes
   const lTetromino = [
@@ -68,5 +69,35 @@ document.addEventListener("DOMContentLoaded", () => {
     current.forEach((index) => {
       squares[currentPosition + index].classList.remove("tetrimino");
     });
+  }
+
+  //Make the block move down every second
+  timderID = setInterval(moveDown, 1000);
+
+  //Move down function
+  function moveDown() {
+    undraw();
+    currentPosition += width;
+    draw();
+    freeze();
+  }
+
+  //Freeze function
+  function freeze() {
+    if (
+      current.some((index) =>
+        squares[currentPosition + index + width].classList.contains("taken")
+      )
+    ) {
+      current.forEach((index) =>
+        squares[currentPosition + index].classList.add("taken")
+      );
+      //start a new block falling
+      random = nextRandom;
+      nextRandom = Math.floor(Math.random() * theTetriminoes.length);
+      current = theTetriminoes[random][currentRotation];
+      currentPosition = 4;
+      draw();
+    }
   }
 });
